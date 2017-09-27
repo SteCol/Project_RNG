@@ -19,7 +19,7 @@ public class scr_Generation : MonoBehaviour
 
     void Start()
     {
-        dragons.Clear();
+        //dragons.Clear();
         for (int i = 0; i < _Storage.RNG(1, 25); i++)
         {
             GameObject headObject = Instantiate(head);
@@ -28,11 +28,24 @@ public class scr_Generation : MonoBehaviour
 
         foreach (cls_Dragon d in dragons)
         {
-            Color color = _Storage.Storage().colors[Random.Range(0, _Storage.Storage().colors.Count)];
+            Color colorA = _Storage.Storage().colors[_Storage.RNG(0, _Storage.Storage().colors.Count)];
+            Color colorB = _Storage.Storage().colors[_Storage.RNG(0, _Storage.Storage().colors.Count)];
 
-            for (int i = 0; i < _Storage.RNG(3, 100); i++)
-                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d, color);
+            int amountOfSegments = _Storage.RNG(3, 30);
+
+            for (int i = 0; i < amountOfSegments; i++)
+            {
+                //Make color lighter the more segments there are
+                float b = ((float)i + 1.0f) / (float)amountOfSegments;
+                Color tempColor = Color.Lerp(colorA, colorB, b);
+
+                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d, tempColor);
+            }
         }
+
+        //Attach the camera
+
+        GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
     }
 
     // Update is called once per frame
@@ -92,16 +105,19 @@ public class scr_Generation : MonoBehaviour
     {
         GameObject segment = Instantiate(_prefab);
 
+        Color tempColor = new Color(_color.r, _color.g, _color.b, _color.a);
+
+
 
         foreach (Transform t in segment.GetComponentInChildren<Transform>())
         {
             if (t.GetComponent<MeshRenderer>() != null)
+            {
                 t.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
 
-            foreach (Transform tt in t.GetComponentInChildren<Transform>())
-            {
-                if (tt.GetComponent<MeshRenderer>() != null)
-                    tt.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
+                foreach (Transform tt in t.GetComponentInChildren<Transform>())
+                    if (tt.GetComponent<MeshRenderer>() != null)
+                        tt.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
             }
         }
 
@@ -123,6 +139,8 @@ public class scr_Generation : MonoBehaviour
 
         segment.AddComponent<LineRenderer>();
         segment.GetComponent<LineRenderer>().materials = this.GetComponent<LineRenderer>().materials;
+        segment.GetComponent<LineRenderer>().SetColors(_color, _color);
+
         segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
     }
 }
@@ -145,7 +163,8 @@ public class Grid
     public Vector3 pos;
     public GameObject obj;
 
-    public Grid(Vector3 _pos, GameObject _obj) {
+    public Grid(Vector3 _pos, GameObject _obj)
+    {
         pos = _pos;
         obj = _obj;
     }

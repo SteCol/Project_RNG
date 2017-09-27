@@ -176,5 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
-  rngValueA: -400
-  rngValueB: 400
+  rngValueA: -800
+  rngValueB: 800

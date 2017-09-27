@@ -13,6 +13,10 @@ public class scr_Sliert : MonoBehaviour {
     void Start()
     {
         this.GetComponent<LineRenderer>().positionCount = points.Count;
+        this.GetComponent<LineRenderer>().materials = GameObject.FindGameObjectWithTag("GameController").GetComponent<LineRenderer>().materials;
+        this.GetComponent<LineRenderer>().SetColors(_Storage.Storage().colors[_Storage.RNG(0, _Storage.Storage().colors.Count)], _Storage.Storage().colors[_Storage.RNG(0, _Storage.Storage().colors.Count)]);
+
+
         speed = Random.Range(1, 10);
     }
 
