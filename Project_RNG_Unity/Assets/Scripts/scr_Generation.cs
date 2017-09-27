@@ -28,7 +28,9 @@ public class scr_Generation : MonoBehaviour
 
         System.Random pseudoRandom = new System.Random(seed.GetHashCode());
 
-        print(pseudoRandom.Next(0, prefabs.Count).ToString());
+        for (int i = 0; i < 10; i++)
+            print(pseudoRandom.Next(0, 10).ToString());
+
         foreach (cls_Dragon d in dragons)
         {
             for (int i = 0; i < segmentsToSpawn; i++)
@@ -98,7 +100,7 @@ public class scr_Generation : MonoBehaviour
 
             float randomScale = _pseudoRandom.Next(1, 5);
 
-            segment.transform.localScale = new Vector3(Random.Range(0.1f, 2.0f), Random.Range(0.1f, 2.0f), Random.Range(0.1f, 2.0f));
+            segment.transform.localScale = new Vector3(_pseudoRandom.Next(1, 3), _pseudoRandom.Next(1, 3), _pseudoRandom.Next(1, 3));
 
             //Get the hingepoint
             foreach (Transform g in d.segments[d.segments.Count - 1].GetComponentInChildren<Transform>())
@@ -126,3 +128,4 @@ public class cls_Dragon {
         segments.Add(_head);
     }
 }
+

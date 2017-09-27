@@ -8,12 +8,15 @@ public class scr_Waypoints : MonoBehaviour
     public List<Vector3> waypoints;
     public int rngValueA, rngValueB;
 
-    void Awake()
+    void Start()
     {
-        for (int i = 0; i < 10; i++)
-            waypoints.Add(new Vector3(Random.Range(rngValueA, rngValueB), Random.Range(rngValueA, rngValueB), Random.Range(rngValueA, rngValueB)));
+        string seed = GameObject.FindGameObjectWithTag("GameController").GetComponent<scr_Generation>().seed;
+        //System.Random pseudoRandom = new System.Random(seed.GetHashCode());
 
-        StartCoroutine(iNavigateTo(waypoints[Random.Range(0, waypoints.Count)]));
+        for (int i = 0; i < 10; i++)
+            waypoints.Add(new Vector3(_Storage.RNG(rngValueA, rngValueB), _Storage.RNG(rngValueA, rngValueB), _Storage.RNG(rngValueA, rngValueB)));
+
+        StartCoroutine(iNavigateTo(waypoints[_Storage.RNG(0, waypoints.Count)]));
     }
 
     void Update()
@@ -37,7 +40,7 @@ public class scr_Waypoints : MonoBehaviour
             yield return new WaitForSeconds(0.001f);
         }
 
-        StartCoroutine(iNavigateTo(waypoints[Random.Range(0, waypoints.Count)]));
+        StartCoroutine(iNavigateTo(waypoints[_Storage.RNG(0, waypoints.Count)]));
         yield return null;
     }
 }
