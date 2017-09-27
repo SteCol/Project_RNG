@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Storage : MonoBehaviour
 {
+    [Header("Controls")]
+    public bool generateColors;
+
     [Header("Prefabs")]
     public List<GameObject> appendages;
+    public List<Color> colors;
 
     [Header("RNG stuff")]
     public System.Random pseudoRandom;
@@ -17,10 +22,18 @@ public class Storage : MonoBehaviour
         pseudoRandom = new System.Random(seed.GetHashCode());
     }
 
-    public int RNG(int a, int b)
-    {
-        int i = pseudoRandom.Next(a, b);
-        return i;
+    void Update() {
+        if (generateColors) {
+            GenerateColors(colors.Count);
+            generateColors = false;
+        }
+    }
+
+    void GenerateColors(int _amount) {
+        colors.Clear();
+        for (int i = 0; i < _amount; i++) {
+            colors.Add(new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
+        }
     }
 }
 

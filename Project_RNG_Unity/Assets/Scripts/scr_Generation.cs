@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class scr_Generation : MonoBehaviour
 {
-
     public string seed;
     public int segmentsToSpawn;
     public int dragonsToSpawn;
@@ -18,19 +17,22 @@ public class scr_Generation : MonoBehaviour
 
     public List<GameObject> segments;
 
-    void Start() {
+    void Start()
+    {
         dragons.Clear();
-        for (int i = 0; i < _Storage.RNG(1,25); i++) {
+        for (int i = 0; i < _Storage.RNG(1, 25); i++)
+        {
             GameObject headObject = Instantiate(head);
             dragons.Add(new cls_Dragon(headObject));
         }
 
-        //for (int i = 0; i < 10; i++)
-        //    print(_Storage.RNG(0, 10).ToString());
-
         foreach (cls_Dragon d in dragons)
-            for (int i = 0; i < _Storage.RNG(3,100); i++)
-                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d);
+        {
+            Color color = _Storage.Storage().colors[Random.Range(0, _Storage.Storage().colors.Count)];
+
+            for (int i = 0; i < _Storage.RNG(3, 100); i++)
+                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d, color);
+        }
     }
 
     // Update is called once per frame
@@ -86,37 +88,65 @@ public class scr_Generation : MonoBehaviour
         yield return null;
     }
 
-    void SpawnSegments(GameObject _prefab, cls_Dragon d)
+    void SpawnSegments(GameObject _prefab, cls_Dragon d, Color _color)
     {
-            GameObject segment = Instantiate(_prefab);
+        GameObject segment = Instantiate(_prefab);
 
-            //float randomScale = _Storage.RNG(1, 5);
 
-            segment.transform.localScale = new Vector3(_Storage.RNG(1, 3), _Storage.RNG(1, 3), _Storage.RNG(1, 3));
+        foreach (Transform t in segment.GetComponentInChildren<Transform>())
+        {
+            if (t.GetComponent<MeshRenderer>() != null)
+                t.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
 
-            //Get the hingepoint
-            foreach (Transform g in d.segments[d.segments.Count - 1].GetComponentInChildren<Transform>())
-                if (g.gameObject.name == "Point_B")
-                    segment.transform.position = g.position;
+            foreach (Transform tt in t.GetComponentInChildren<Transform>())
+            {
+                if (tt.GetComponent<MeshRenderer>() != null)
+                    tt.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
+            }
+        }
 
-            //Rotatie van de vorige block overnemen
-            //segment.transform.rotation = segments[segments.Count - 1].transform.rotation;
-            //segment.transform.Rotate(0, _pseudoRandom.Next(-90, 90), 0);
 
-            d.segments.Add(segment);
+        //float randomScale = _Storage.RNG(1, 5);
 
-            segment.AddComponent<LineRenderer>();
-            segment.GetComponent<LineRenderer>().materials = this.GetComponent<LineRenderer>().materials;
-            segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
+        segment.transform.localScale = new Vector3(_Storage.RNG(1, 3), _Storage.RNG(1, 3), _Storage.RNG(1, 3));
+
+        //Get the hingepoint
+        foreach (Transform g in d.segments[d.segments.Count - 1].GetComponentInChildren<Transform>())
+            if (g.gameObject.name == "Point_B")
+                segment.transform.position = g.position;
+
+        //Rotatie van de vorige block overnemen
+        //segment.transform.rotation = segments[segments.Count - 1].transform.rotation;
+        //segment.transform.Rotate(0, _pseudoRandom.Next(-90, 90), 0);
+
+        d.segments.Add(segment);
+
+        segment.AddComponent<LineRenderer>();
+        segment.GetComponent<LineRenderer>().materials = this.GetComponent<LineRenderer>().materials;
+        segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
     }
 }
 
 [System.Serializable]
-public class cls_Dragon {
+public class cls_Dragon
+{
     public List<GameObject> segments = new List<GameObject>();
 
-    public cls_Dragon(GameObject _head) {
+    public cls_Dragon(GameObject _head)
+    {
         segments.Add(_head);
     }
 }
 
+[System.Serializable]
+public class Grid
+{
+    public bool opuated;
+    public Vector3 pos;
+    public GameObject obj;
+
+    public Grid(Vector3 _pos, GameObject _obj) {
+        pos = _pos;
+        obj = _obj;
+    }
+}

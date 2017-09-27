@@ -238,8 +238,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7a8b6ee4bebfb44baeee335389d5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateColors: 0
   appendages:
   - {fileID: 1457734495323892, guid: 2ab564cdac182e54f8580a0c3806fad8, type: 2}
+  colors:
+  - {r: 0.98542523, g: 0.09811938, b: 0.07208645, a: 1}
+  - {r: 0.8580177, g: 0.702068, b: 0.12394643, a: 1}
+  - {r: 0.7041626, g: 0.5916955, b: 0.75958097, a: 1}
+  - {r: 0.1194036, g: 0.8973979, b: 0.18883872, a: 1}
+  - {r: 0.49781245, g: 0.038040996, b: 0.35904354, a: 1}
+  - {r: 0.6012369, g: 0.27885956, b: 0.8338635, a: 1}
+  - {r: 0.3303601, g: 0.3080538, b: 0.07910335, a: 1}
+  - {r: 0.89720213, g: 0.25445956, b: 0.55348045, a: 1}
+  - {r: 0.17277074, g: 0.43481785, b: 0.5821064, a: 1}
+  - {r: 0.022188425, g: 0.8708328, b: 0.842651, a: 1}
 --- !u!120 &1073814425
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -369,6 +381,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114490070161418374, guid: e63658c6c3b10ae4fbe49618022a5a78,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114275551370400236, guid: e63658c6c3b10ae4fbe49618022a5a78,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e63658c6c3b10ae4fbe49618022a5a78, type: 2}
   m_IsPrefabParent: 0
@@ -397,7 +419,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1916049257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -600}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
