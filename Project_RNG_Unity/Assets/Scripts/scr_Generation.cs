@@ -17,27 +17,20 @@ public class scr_Generation : MonoBehaviour
     public List<cls_Dragon> dragons;
 
     public List<GameObject> segments;
-    //public List<GameObject> parts;
 
-    void Awake() {
+    void Start() {
         dragons.Clear();
-        for (int i = 0; i < dragonsToSpawn; i++) {
+        for (int i = 0; i < _Storage.RNG(1,25); i++) {
             GameObject headObject = Instantiate(head);
             dragons.Add(new cls_Dragon(headObject));
         }
 
-        System.Random pseudoRandom = new System.Random(seed.GetHashCode());
-
-        for (int i = 0; i < 10; i++)
-            print(pseudoRandom.Next(0, 10).ToString());
+        //for (int i = 0; i < 10; i++)
+        //    print(_Storage.RNG(0, 10).ToString());
 
         foreach (cls_Dragon d in dragons)
-        {
-            for (int i = 0; i < segmentsToSpawn; i++)
-            {
-                SpawnSegments(prefabs[pseudoRandom.Next(0, prefabs.Count)], pseudoRandom, d);
-            }
-        }
+            for (int i = 0; i < _Storage.RNG(3,100); i++)
+                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d);
     }
 
     // Update is called once per frame
@@ -87,20 +80,19 @@ public class scr_Generation : MonoBehaviour
             }
         }
 
-        //yield return new WaitForSeconds(0.5f);
         yield return new WaitForEndOfFrame();
 
         StartCoroutine(MoveBlocks());
         yield return null;
     }
 
-    void SpawnSegments(GameObject _prefab, System.Random _pseudoRandom, cls_Dragon d)
+    void SpawnSegments(GameObject _prefab, cls_Dragon d)
     {
             GameObject segment = Instantiate(_prefab);
 
-            float randomScale = _pseudoRandom.Next(1, 5);
+            //float randomScale = _Storage.RNG(1, 5);
 
-            segment.transform.localScale = new Vector3(_pseudoRandom.Next(1, 3), _pseudoRandom.Next(1, 3), _pseudoRandom.Next(1, 3));
+            segment.transform.localScale = new Vector3(_Storage.RNG(1, 3), _Storage.RNG(1, 3), _Storage.RNG(1, 3));
 
             //Get the hingepoint
             foreach (Transform g in d.segments[d.segments.Count - 1].GetComponentInChildren<Transform>())
@@ -116,7 +108,6 @@ public class scr_Generation : MonoBehaviour
             segment.AddComponent<LineRenderer>();
             segment.GetComponent<LineRenderer>().materials = this.GetComponent<LineRenderer>().materials;
             segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
-
     }
 }
 

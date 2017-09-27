@@ -202,9 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89620ac41c77ce04c8ba3ce541a8ab0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: Jan
-  segmentsToSpawn: 6
-  dragonsToSpawn: 3
+  seed: eeh maybe a bit more,
+  segmentsToSpawn: 15
+  dragonsToSpawn: 5
   addBlock: 0
   follow: 1
   head: {fileID: 1736576586620354, guid: e63658c6c3b10ae4fbe49618022a5a78, type: 2}
