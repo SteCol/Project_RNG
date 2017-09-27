@@ -7,7 +7,7 @@ public class scr_Sliert : MonoBehaviour {
     public float distance;
     public List<GameObject> realPoints;
     public List<Vector3> points;
-    public int speed = 10;
+    public int speed = 5;
 
     // Use this for initialization
     void Start()

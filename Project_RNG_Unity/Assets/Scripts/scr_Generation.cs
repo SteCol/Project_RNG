@@ -107,18 +107,23 @@ public class scr_Generation : MonoBehaviour
 
         Color tempColor = new Color(_color.r, _color.g, _color.b, _color.a);
 
-
-
         foreach (Transform t in segment.GetComponentInChildren<Transform>())
         {
-            if (t.GetComponent<MeshRenderer>() != null)
-            {
-                t.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
+            if (t.GetComponent<Material>() != null)
+                t.GetComponent<Material>().SetColor("_Color", _color);
 
-                foreach (Transform tt in t.GetComponentInChildren<Transform>())
-                    if (tt.GetComponent<MeshRenderer>() != null)
-                        tt.GetComponent<MeshRenderer>().material.SetColor("_Color", _color);
+            foreach (Transform tt in t.GetComponentInChildren<Transform>())
+            {
+                if (tt.GetComponent<Material>() != null)
+                    tt.GetComponent<Material>().SetColor("_Color", _color);
+
+                foreach (Transform ttt in tt.GetComponentInChildren<Transform>())
+                {
+                    if (ttt.GetComponent<Material>() != null)
+                        ttt.GetComponent<Material>().SetColor("_Color", _color);
+                }
             }
+
         }
 
 
