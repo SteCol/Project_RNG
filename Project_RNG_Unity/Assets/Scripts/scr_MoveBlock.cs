@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class scr_MoveBlock : MonoBehaviour {
 
+    public float turnSpeed;
+
 	void Update () {
         this.transform.Translate(0, 0, 1.5f);
-        this.transform.Rotate(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
+        this.transform.Rotate(Input.GetAxis("Vertical")  * turnSpeed, 0, -Input.GetAxis("Horizontal") * turnSpeed);
 	}
 }

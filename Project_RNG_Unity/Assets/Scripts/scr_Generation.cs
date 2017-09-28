@@ -44,6 +44,7 @@ public class scr_Generation : MonoBehaviour
         }
 
         //Attach the camera
+        
 
         GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
     }
@@ -109,18 +110,17 @@ public class scr_Generation : MonoBehaviour
 
         foreach (Transform t in segment.GetComponentInChildren<Transform>())
         {
-            if (t.GetComponent<Material>() != null)
-                t.GetComponent<Material>().SetColor("_Color", _color);
+            SetColour(t.gameObject, _color);
 
             foreach (Transform tt in t.GetComponentInChildren<Transform>())
             {
-                if (tt.GetComponent<Material>() != null)
-                    tt.GetComponent<Material>().SetColor("_Color", _color);
+                SetColour(tt.gameObject, _color);
+
 
                 foreach (Transform ttt in tt.GetComponentInChildren<Transform>())
                 {
-                    if (ttt.GetComponent<Material>() != null)
-                        ttt.GetComponent<Material>().SetColor("_Color", _color);
+                    SetColour(ttt.gameObject, _color);
+
                 }
             }
 
@@ -147,6 +147,28 @@ public class scr_Generation : MonoBehaviour
         segment.GetComponent<LineRenderer>().SetColors(_color, _color);
 
         segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
+
+        SetAnimationOffset(segment, (float)_Storage.RNG(0,100)/100);
+    }
+
+    void SetColour(GameObject _g, Color _c) {
+        if (_g.GetComponent<MeshRenderer>() != null)
+            _g.GetComponent<MeshRenderer>().material.SetColor("_Color", _c);
+
+        if (_g.GetComponent<SkinnedMeshRenderer>() != null)
+            _g.GetComponent<SkinnedMeshRenderer>().material.SetColor("_Color", _c);
+    }
+
+    void SetAnimationOffset(GameObject _g, float _f) {
+
+        print("Setting animation " + _g.name + " " + _f);
+        if (_g.GetComponent<Animator>() != null) 
+            _g.GetComponent<Animator>().SetFloat("AnimationOffset", _f);
+
+        foreach (Transform t in _g.GetComponentInChildren<Transform>()) {
+            if (t.GetComponent<Animator>() != null)
+                t.GetComponent<Animator>().SetFloat("AnimationOffset", _f);
+        }
     }
 }
 
