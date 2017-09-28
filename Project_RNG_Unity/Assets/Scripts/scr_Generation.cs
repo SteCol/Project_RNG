@@ -32,6 +32,7 @@ public class scr_Generation : MonoBehaviour
             Color colorB = _Storage.Storage().colors[_Storage.RNG(0, _Storage.Storage().colors.Count)];
 
             int amountOfSegments = _Storage.RNG(3, 30);
+            d.segments[0].GetComponentInChildren<MeshRenderer>().material.SetColor("_Color", colorA);
 
             for (int i = 0; i < amountOfSegments; i++)
             {
@@ -39,12 +40,12 @@ public class scr_Generation : MonoBehaviour
                 float b = ((float)i + 1.0f) / (float)amountOfSegments;
                 Color tempColor = Color.Lerp(colorA, colorB, b);
 
-                SpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d, tempColor);
+                StartCoroutine(iSpawnSegments(prefabs[_Storage.RNG(0, prefabs.Count)], d, tempColor));
             }
         }
 
         //Attach the camera
-        
+
 
         GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
     }
@@ -102,30 +103,11 @@ public class scr_Generation : MonoBehaviour
         yield return null;
     }
 
-    void SpawnSegments(GameObject _prefab, cls_Dragon d, Color _color)
+    IEnumerator iSpawnSegments(GameObject _prefab, cls_Dragon d, Color _color)
     {
         GameObject segment = Instantiate(_prefab);
 
         Color tempColor = new Color(_color.r, _color.g, _color.b, _color.a);
-
-        foreach (Transform t in segment.GetComponentInChildren<Transform>())
-        {
-            SetColour(t.gameObject, _color);
-
-            foreach (Transform tt in t.GetComponentInChildren<Transform>())
-            {
-                SetColour(tt.gameObject, _color);
-
-
-                foreach (Transform ttt in tt.GetComponentInChildren<Transform>())
-                {
-                    SetColour(ttt.gameObject, _color);
-
-                }
-            }
-
-        }
-
 
         //float randomScale = _Storage.RNG(1, 5);
 
@@ -148,10 +130,52 @@ public class scr_Generation : MonoBehaviour
 
         segment.GetComponent<LineRenderer>().SetWidth(this.GetComponent<LineRenderer>().startWidth, this.GetComponent<LineRenderer>().endWidth);
 
-        SetAnimationOffset(segment, (float)_Storage.RNG(0,100)/100);
+        SetAnimationOffset(segment, (float)_Storage.RNG(0, 100) / 100);
+
+        yield return new WaitForEndOfFrame();
+
+        //int layerdepth = 5; 
+        //GameObject seg = segment;
+        //GameObject seg2 = seg;
+        //List<GameObject> toChangeColor = new List<GameObject>();
+        //toChangeColor.Add(segment);
+
+        //for (int i = 0; i < layerdepth; i++)
+        //{
+        //    foreach (GameObject g in toChangeColor) {
+        //        foreach (Transform t in g.GetComponent<Transform>()) {
+        //            toChangeColor.Add(t.gameObject);
+        //            yield return new WaitForEndOfFrame();
+        //        }
+        //    }
+        //}
+
+        //foreach (GameObject g in toChangeColor) {
+        //    SetColour(g.gameObject, _color);
+        //}
+
+        foreach (Transform t in segment.GetComponentInChildren<Transform>())
+        {
+            SetColour(t.gameObject, _color);
+
+            foreach (Transform tt in t.GetComponentInChildren<Transform>())
+            {
+                SetColour(tt.gameObject, _color);
+
+                foreach (Transform ttt in tt.GetComponentInChildren<Transform>())
+                {
+                    SetColour(ttt.gameObject, _color);
+
+                    foreach (Transform tttt in ttt.GetComponentInChildren<Transform>())
+                        SetColour(tttt.gameObject, _color);
+                }
+            }
+        }
+        yield return null;
     }
 
-    void SetColour(GameObject _g, Color _c) {
+    void SetColour(GameObject _g, Color _c)
+    {
         if (_g.GetComponent<MeshRenderer>() != null)
             _g.GetComponent<MeshRenderer>().material.SetColor("_Color", _c);
 
@@ -159,15 +183,16 @@ public class scr_Generation : MonoBehaviour
             _g.GetComponent<SkinnedMeshRenderer>().material.SetColor("_Color", _c);
     }
 
-    void SetAnimationOffset(GameObject _g, float _f) {
-
-        print("Setting animation " + _g.name + " " + _f);
-        if (_g.GetComponent<Animator>() != null) 
+    void SetAnimationOffset(GameObject _g, float _f)
+    {
+        if (_g.GetComponent<Animator>() != null)
             _g.GetComponent<Animator>().SetFloat("AnimationOffset", _f);
 
-        foreach (Transform t in _g.GetComponentInChildren<Transform>()) {
-            if (t.GetComponent<Animator>() != null)
-                t.GetComponent<Animator>().SetFloat("AnimationOffset", _f);
+        foreach (Transform t in _g.GetComponentInChildren<Transform>())
+        {
+            if (t.GetComponent<Animator>() != null && t.GetComponent<Animator>().runtimeAnimatorController != null)
+                if (t.GetComponent<Animator>().GetFloat("AnimationOffset") != null)
+                    t.GetComponent<Animator>().SetFloat("AnimationOffset", _f);
         }
     }
 }

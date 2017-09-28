@@ -1,73 +1,58 @@
 fileFormatVersion: 2
-guid: 5479c2634222fac4e8b45c772b8689eb
-timeCreated: 1506595817
+guid: 09824ee4d872cf84fae66917ccb98fde
+timeCreated: 1506596671
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: Armature
-    100002: Bone_0.1
-    100004: Bone_0.2
-    100006: Bone_0.3
-    100008: Bone_1.1.l
-    100010: Bone_1.1.r
-    100012: Bone_1.2.l
-    100014: Bone_1.2.l_end
-    100016: Bone_1.2.r
-    100018: Bone_1.2.r_end
-    100020: Bone_2.1.l
-    100022: Bone_2.1.r
-    100024: Bone_2.2.l
-    100026: Bone_2.2.l_end
-    100028: Bone_2.2.r
-    100030: Bone_2.2.r_end
-    100032: Bone_3.1.l
-    100034: Bone_3.1.r
-    100036: Bone_3.2.l
-    100038: Bone_3.2.l_end
-    100040: Bone_3.2.r
-    100042: Bone_3.2.r_end
-    100044: Bone_4.1.l
-    100046: Bone_4.1.r
-    100048: Bone_4.2.l
-    100050: Bone_4.2.l_end
-    100052: Bone_4.2.r
-    100054: Bone_4.2.r_end
-    100056: Cube
-    100058: Root
-    100060: //RootNode
+    100002: Bone_0_1
+    100004: Bone_0_2
+    100006: Bone_0_3
+    100008: Bone_1_1_l
+    100010: Bone_1_1_r
+    100012: Bone_1_2_l
+    100014: Bone_1_2_r
+    100016: Bone_2_1_l
+    100018: Bone_2_1_r
+    100020: Bone_2_2_l
+    100022: Bone_2_2_r
+    100024: Bone_3_1_l
+    100026: Bone_3_1_r
+    100028: Bone_3_2_l
+    100030: Bone_3_2_r
+    100032: Bone_4_1_l
+    100034: Bone_4_1_r
+    100036: Bone_4_2_l
+    100038: Bone_4_2_r
+    100040: Cube
+    100042: Root
+    100044: //RootNode
     400000: Armature
-    400002: Bone_0.1
-    400004: Bone_0.2
-    400006: Bone_0.3
-    400008: Bone_1.1.l
-    400010: Bone_1.1.r
-    400012: Bone_1.2.l
-    400014: Bone_1.2.l_end
-    400016: Bone_1.2.r
-    400018: Bone_1.2.r_end
-    400020: Bone_2.1.l
-    400022: Bone_2.1.r
-    400024: Bone_2.2.l
-    400026: Bone_2.2.l_end
-    400028: Bone_2.2.r
-    400030: Bone_2.2.r_end
-    400032: Bone_3.1.l
-    400034: Bone_3.1.r
-    400036: Bone_3.2.l
-    400038: Bone_3.2.l_end
-    400040: Bone_3.2.r
-    400042: Bone_3.2.r_end
-    400044: Bone_4.1.l
-    400046: Bone_4.1.r
-    400048: Bone_4.2.l
-    400050: Bone_4.2.l_end
-    400052: Bone_4.2.r
-    400054: Bone_4.2.r_end
-    400056: Cube
-    400058: Root
-    400060: //RootNode
+    400002: Bone_0_1
+    400004: Bone_0_2
+    400006: Bone_0_3
+    400008: Bone_1_1_l
+    400010: Bone_1_1_r
+    400012: Bone_1_2_l
+    400014: Bone_1_2_r
+    400016: Bone_2_1_l
+    400018: Bone_2_1_r
+    400020: Bone_2_2_l
+    400022: Bone_2_2_r
+    400024: Bone_3_1_l
+    400026: Bone_3_1_r
+    400028: Bone_3_2_l
+    400030: Bone_3_2_r
+    400032: Bone_4_1_l
+    400034: Bone_4_1_r
+    400036: Bone_4_2_l
+    400038: Bone_4_2_r
+    400040: Cube
+    400042: Root
+    400044: //RootNode
     4300000: Cube
+    7400000: Default Take
     9500000: //RootNode
     13700000: Cube
   materials:
