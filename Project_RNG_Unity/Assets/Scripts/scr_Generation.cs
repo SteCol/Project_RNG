@@ -30,16 +30,18 @@ public class scr_Generation : MonoBehaviour
         Regen();
     }
 
-    public void Regen() {
+    public void Regen()
+    {
 
         _Storage.Storage().SetSeed(seedString.text);
 
         dragons.Clear();
         mainHead.transform.position = new Vector3(0, 0, 0);
-        mainHead.transform.rotation = new Quaternion(0,180,0,0);
+        mainHead.transform.rotation = new Quaternion(0, 180, 0, 0);
         dragons.Add(new cls_Dragon(mainHead));
 
-        foreach (GameObject s in GameObject.FindGameObjectsWithTag("Segment")) {
+        foreach (GameObject s in GameObject.FindGameObjectsWithTag("Segment"))
+        {
             Destroy(s);
         }
 
@@ -127,13 +129,30 @@ public class scr_Generation : MonoBehaviour
                             d.segments[i].transform.LookAt(g.transform);
 
                             //Smooth look at
-                            //Quaternion rotation = Quaternion.LookRotation(g.position - segments[i].transform.position);
-                            //segments[i].transform.rotation = Quaternion.Slerp(segments[i].transform.rotation, rotation, Time.deltaTime * 10.0f);
+                            //Quaternion rotation = Quaternion.LookRotation(g.position - d.segments[i].transform.position);
+                            //d.segments[i].transform.rotation = Quaternion.Slerp(d.segments[i].transform.rotation, rotation, Time.deltaTime * dist * 3);
                         }
 
                     d.segments[i].transform.eulerAngles = new Vector3(d.segments[i].transform.eulerAngles.x, d.segments[i].transform.eulerAngles.y, d.segments[i - 1].transform.eulerAngles.z);
-                    d.segments[i].transform.Translate(0, 0, 1.5f);
+                    d.segments[i].transform.Translate(0, 0, /*1.5f*/ 100 * Time.deltaTime);
                 }
+
+                //Get the rotation
+                //if (dist > 4.0f)
+                //{
+                //    foreach (Transform g in d.segments[i - 1].GetComponentInChildren<Transform>())
+                //        if (g.gameObject.name == "Point_B")
+                //        {
+                //            //Hard look at
+                //            d.segments[i].transform.LookAt(g.transform);
+
+                //            //Smooth look at
+                //            //Quaternion rotation = Quaternion.LookRotation(g.position - d.segments[i].transform.position);
+                //            //d.segments[i].transform.rotation = Quaternion.Slerp(d.segments[i].transform.rotation, rotation, Time.deltaTime * 1.0f);
+                //        }
+
+                //    d.segments[i].transform.eulerAngles = new Vector3(d.segments[i].transform.eulerAngles.x, d.segments[i].transform.eulerAngles.y, d.segments[i - 1].transform.eulerAngles.z);
+                //}
             }
         }
 
@@ -149,8 +168,7 @@ public class scr_Generation : MonoBehaviour
 
         Color tempColor = new Color(_color.r, _color.g, _color.b, _color.a);
 
-        //float randomScale = _Storage.RNG(1, 5);
-
+        //Set random schale
         segment.transform.localScale = new Vector3(_Storage.RNG(1, 3), _Storage.RNG(1, 3), _Storage.RNG(1, 3));
 
         //Get the hingepoint

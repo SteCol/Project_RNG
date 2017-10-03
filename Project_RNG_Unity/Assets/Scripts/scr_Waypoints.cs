@@ -22,6 +22,8 @@ public class scr_Waypoints : MonoBehaviour
     void Update()
     {
         this.transform.Translate(0, 0, speed * Time.deltaTime);
+        //this.transform.Translate(0, 0, 1.5f);
+
     }
 
     public IEnumerator iNavigateTo(Vector3 _point)

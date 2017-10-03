@@ -9,6 +9,7 @@ public class scr_MoveBlock : MonoBehaviour {
 
 	void Update () {
         this.transform.Translate(0, 0, speed * Time.deltaTime);
+        //this.transform.Translate(0, 0, 1.5f);
         this.transform.Rotate(Input.GetAxis("Vertical")  * turnSpeed * Time.deltaTime, 0, -Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
 	}
 }
