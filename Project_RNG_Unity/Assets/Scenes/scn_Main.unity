@@ -4900,6 +4900,16 @@ Prefab:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 114275551370400236, guid: e63658c6c3b10ae4fbe49618022a5a78,
+        type: 2}
+      propertyPath: turnSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114275551370400236, guid: e63658c6c3b10ae4fbe49618022a5a78,
+        type: 2}
+      propertyPath: speed
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e63658c6c3b10ae4fbe49618022a5a78, type: 2}
   m_IsPrefabParent: 0

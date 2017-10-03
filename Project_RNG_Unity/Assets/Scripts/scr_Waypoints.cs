@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class scr_Waypoints : MonoBehaviour
 {
-
+    public float speed;
     public List<Vector3> waypoints;
     public int rngValueA, rngValueB;
 
@@ -21,7 +21,7 @@ public class scr_Waypoints : MonoBehaviour
 
     void Update()
     {
-        this.transform.Translate(0, 0, 1.5f);
+        this.transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
     public IEnumerator iNavigateTo(Vector3 _point)
