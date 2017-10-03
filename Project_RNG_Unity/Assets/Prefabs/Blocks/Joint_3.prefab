@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 4274510223229432}
   m_Layer: 0
   m_Name: Joint_3
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class scr_Generation : MonoBehaviour
 {
@@ -11,14 +13,53 @@ public class scr_Generation : MonoBehaviour
     public bool follow;
 
     public GameObject head;
+    public GameObject mainHead;
+    public Vector3 cameraPos;
+    public Quaternion cameraRot;
 
     public List<GameObject> prefabs;
     public List<cls_Dragon> dragons;
 
     public List<GameObject> segments;
 
+    [Header("UI stuff")]
+    public InputField seedString;
+
     void Start()
     {
+        Regen();
+    }
+
+    public void Regen() {
+
+        _Storage.Storage().SetSeed(seedString.text);
+
+        dragons.Clear();
+        mainHead.transform.position = new Vector3(0, 0, 0);
+        mainHead.transform.rotation = new Quaternion(0,180,0,0);
+        dragons.Add(new cls_Dragon(mainHead));
+
+        foreach (GameObject s in GameObject.FindGameObjectsWithTag("Segment")) {
+            Destroy(s);
+        }
+
+        //for (int i = 0; i < dragons.Count; i++) {
+        //    for (int j = 0; j < dragons[i].segments.Count; j++)
+        //    {
+        //        if (i == 0 && j == 0)
+        //        {
+        //            print("this is player head do not destroy");
+        //        }
+        //        else
+        //        {
+        //            toDestroy = dragons[i].segments[j];
+        //            dragons[i].segments.Remove(toDestroy);
+        //            Destroy(toDestroy);
+        //        }
+        //    }
+        //}
+
+
         //dragons.Clear();
         for (int i = 0; i < _Storage.RNG(1, 25); i++)
         {
@@ -46,8 +87,7 @@ public class scr_Generation : MonoBehaviour
 
         //Attach the camera
 
-
-        GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
+        //GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
     }
 
     // Update is called once per frame

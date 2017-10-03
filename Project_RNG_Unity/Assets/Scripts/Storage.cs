@@ -18,7 +18,11 @@ public class Storage : MonoBehaviour
 
     void Awake()
     {
-        seed = GetComponent<scr_Generation>().seed;
+        SetSeed(GetComponent<scr_Generation>().seed);
+    }
+
+    public void SetSeed(string _s) {
+        seed = _s;
         pseudoRandom = new System.Random(seed.GetHashCode());
     }
 
