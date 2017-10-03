@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class scr_Generation : MonoBehaviour
 {
@@ -11,14 +13,55 @@ public class scr_Generation : MonoBehaviour
     public bool follow;
 
     public GameObject head;
+    public GameObject mainHead;
+    public Vector3 cameraPos;
+    public Quaternion cameraRot;
 
     public List<GameObject> prefabs;
     public List<cls_Dragon> dragons;
 
     public List<GameObject> segments;
 
+    [Header("UI stuff")]
+    public InputField seedString;
+
     void Start()
     {
+        Regen();
+    }
+
+    public void Regen()
+    {
+
+        _Storage.Storage().SetSeed(seedString.text);
+
+        dragons.Clear();
+        mainHead.transform.position = new Vector3(0, 0, 0);
+        mainHead.transform.rotation = new Quaternion(0, 180, 0, 0);
+        dragons.Add(new cls_Dragon(mainHead));
+
+        foreach (GameObject s in GameObject.FindGameObjectsWithTag("Segment"))
+        {
+            Destroy(s);
+        }
+
+        //for (int i = 0; i < dragons.Count; i++) {
+        //    for (int j = 0; j < dragons[i].segments.Count; j++)
+        //    {
+        //        if (i == 0 && j == 0)
+        //        {
+        //            print("this is player head do not destroy");
+        //        }
+        //        else
+        //        {
+        //            toDestroy = dragons[i].segments[j];
+        //            dragons[i].segments.Remove(toDestroy);
+        //            Destroy(toDestroy);
+        //        }
+        //    }
+        //}
+
+
         //dragons.Clear();
         for (int i = 0; i < _Storage.RNG(1, 25); i++)
         {
@@ -46,8 +89,7 @@ public class scr_Generation : MonoBehaviour
 
         //Attach the camera
 
-
-        GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
+        //GameObject.FindGameObjectWithTag("MainCamera").transform.parent = dragons[0].segments[0].transform;
     }
 
     // Update is called once per frame
@@ -87,13 +129,30 @@ public class scr_Generation : MonoBehaviour
                             d.segments[i].transform.LookAt(g.transform);
 
                             //Smooth look at
-                            //Quaternion rotation = Quaternion.LookRotation(g.position - segments[i].transform.position);
-                            //segments[i].transform.rotation = Quaternion.Slerp(segments[i].transform.rotation, rotation, Time.deltaTime * 10.0f);
+                            //Quaternion rotation = Quaternion.LookRotation(g.position - d.segments[i].transform.position);
+                            //d.segments[i].transform.rotation = Quaternion.Slerp(d.segments[i].transform.rotation, rotation, Time.deltaTime * dist * 3);
                         }
 
                     d.segments[i].transform.eulerAngles = new Vector3(d.segments[i].transform.eulerAngles.x, d.segments[i].transform.eulerAngles.y, d.segments[i - 1].transform.eulerAngles.z);
-                    d.segments[i].transform.Translate(0, 0, 1.5f);
+                    d.segments[i].transform.Translate(0, 0, /*1.5f*/ 100 * Time.deltaTime);
                 }
+
+                //Get the rotation
+                //if (dist > 4.0f)
+                //{
+                //    foreach (Transform g in d.segments[i - 1].GetComponentInChildren<Transform>())
+                //        if (g.gameObject.name == "Point_B")
+                //        {
+                //            //Hard look at
+                //            d.segments[i].transform.LookAt(g.transform);
+
+                //            //Smooth look at
+                //            //Quaternion rotation = Quaternion.LookRotation(g.position - d.segments[i].transform.position);
+                //            //d.segments[i].transform.rotation = Quaternion.Slerp(d.segments[i].transform.rotation, rotation, Time.deltaTime * 1.0f);
+                //        }
+
+                //    d.segments[i].transform.eulerAngles = new Vector3(d.segments[i].transform.eulerAngles.x, d.segments[i].transform.eulerAngles.y, d.segments[i - 1].transform.eulerAngles.z);
+                //}
             }
         }
 
@@ -109,8 +168,7 @@ public class scr_Generation : MonoBehaviour
 
         Color tempColor = new Color(_color.r, _color.g, _color.b, _color.a);
 
-        //float randomScale = _Storage.RNG(1, 5);
-
+        //Set random schale
         segment.transform.localScale = new Vector3(_Storage.RNG(1, 3), _Storage.RNG(1, 3), _Storage.RNG(1, 3));
 
         //Get the hingepoint

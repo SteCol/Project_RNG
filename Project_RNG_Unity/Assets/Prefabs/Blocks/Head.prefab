@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114490070161418374}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Segment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 1.5
+  speed: 0
 --- !u!114 &114490070161418374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -276,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0a98da2ff6dd546b8ae6127b6c98f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 100
   waypoints: []
   rngValueA: -800
   rngValueB: 800
